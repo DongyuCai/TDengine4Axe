@@ -1,2 +1,1 @@
-# tdengine4axe
-axe的tdengine包
+Axe的TDengine包
