@@ -17,6 +17,7 @@ import org.axe.interface_.mvc.AfterClassLoaded;
 import org.axe.interface_.mvc.AfterConfigLoaded;
 import org.axe.interface_.mvc.Filter;
 import org.axe.interface_.mvc.Listener;
+import org.axe.util.JsonUtil;
 import org.axe.util.LogUtil;
 import org.axe.util.StringUtil;
 
@@ -70,23 +71,20 @@ public class Test {
 			meters.setGroupdId(2);//设备2组
 			
 			TestDao dao = BeanHelper.getBean(TestDao.class);
+			
+			//增
 			for(int i=0;i<10;i++){
 				meters.setTs(new Date());
 				meters.setVoltage(Integer.parseInt(StringUtil.getRandomString(1,"3456")));
 				dao.insertEntity(meters);
 			}
 			
-//			List<Meters> logList = dao.getLogList(1);
-//			for(Meters log:logList){
-//				System.out.println(log.toString());
-//			}
-//
-////			Thread.sleep(1000);
-//			logList = dao.getLogList(1);
-//			for(Meters log:logList){
-//				System.out.println(log.toString());
-//			}
-			
+			//查
+			List<Meters> logList = dao.getLogList(1);
+			for(Meters log:logList){
+				System.out.println(JsonUtil.toJson(log));
+			}
+
 		} catch (Exception e) {
 			LogUtil.error(e);
 		}

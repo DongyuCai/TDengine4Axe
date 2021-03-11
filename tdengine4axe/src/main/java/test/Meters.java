@@ -10,7 +10,8 @@ import com.tdengine4axe.annotation.Table;
 import com.tdengine4axe.annotation.Tag;
 import com.tdengine4axe.interface_.SuperTable;
 
-@Table(tableName="meters", comment = "电表")
+//带上数据库名称
+@Table(tableName="test4axe.meters", comment = "电表")
 public class Meters implements SuperTable{
 	@Id
 	@Comment("时间")
@@ -86,7 +87,7 @@ public class Meters implements SuperTable{
 
 	@Override
 	public String subTableName() throws Exception {
-		return "device_"+id;//子表的名称
+		return "test4axe.device_"+id;//子表的名称
 	}
 	
 }

@@ -55,15 +55,6 @@ public final class CommonSqlUtil {
 	private CommonSqlUtil() {
 	}
 
-	public static String getShardingGtTableRecordSql(TableSchema tableSchema, int shardingFlag) {
-		StringBuilder sqlBuffer = new StringBuilder();
-		sqlBuffer.setLength(0);
-		sqlBuffer.append("INSERT INTO ").append(tableSchema.getTableName())
-				.append("_sharding_gt(sharding_flag,sharding_table_status,row_count) VALUES (").append(shardingFlag)
-				.append(",1,0)");
-		return sqlBuffer.toString();
-	}
-
 	public static SqlPackage getSelectByIdSqlPackage(Object entity) {
 		StringBuilder sqlBuffer = new StringBuilder();
 		sqlBuffer.append("SELECT * FROM ").append(TableHelper.getRealTableName(entity));

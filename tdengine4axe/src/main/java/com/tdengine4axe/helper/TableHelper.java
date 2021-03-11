@@ -90,9 +90,9 @@ public final class TableHelper implements Helper{
 		tableSchema.setTableName(tableAnnotation.tableName());
 		tableSchema.setSuperTable(SuperTable.class.isAssignableFrom(entityClass));
 		tableSchema.setTableComment(StringUtil.isEmpty(tableAnnotation.comment())?"":tableAnnotation.comment());
+		tableSchema.setDataSourceName(StringUtil.isEmpty(tableAnnotation.dataSource())?DataSourceHelper.getDefaultDataSourceName():tableAnnotation.dataSource());
 		tableSchema.setAutoCreate(tableAnnotation.autoCreate());
 		
-		tableSchema.setDataSourceName(StringUtil.isEmpty(tableAnnotation.dataSource())?DataSourceHelper.getDefaultDataSourceName():tableAnnotation.dataSource());
 		tableSchema.setEntityClass(entityClass);
 
 		// #检测表名是否影响

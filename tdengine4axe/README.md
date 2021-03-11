@@ -1,7 +1,8 @@
 1.建立普通表的POJO映射
 //表字段如果需要创建到表结构里，必须有@Id、@Column、@Tag中的一个
 //@Id字段有且只有一个
-@Table(tableName="user_log",comment = "用户操作记录")
+//*表名最好带上dbname，测试发现，如果不带，并发查询可能会报DataBase 未指定的错误，这可能是tdengine的bug
+@Table(tableName="test4axe.user_log",comment = "用户操作记录")
 public class UserLog{
 	//表结构里不会有这个字段
 	private Long userId;
@@ -40,7 +41,7 @@ public class UserLog{
 }
 
 2.建立超级表可以这样
-@Table(tableName="meters", comment = "电表")
+@Table(tableName="test4axe.meters", comment = "电表")
 public class Meters implements SuperTable{
 	@Id
 	@Comment("时间")
@@ -116,7 +117,33 @@ public class Meters implements SuperTable{
 
 	@Override
 	public String subTableName() throws Exception {
-		return "device_"+id;//子表的名称
+		return "test4axe.device_"+id;//子表的名称
 	}
 	
 }
+
+3.写dao的sql来操作或查询数据
+@Dao
+public interface TestDao extends BaseRepository{
+
+	@Sql("select * from test4axe.device_?1")
+	public List<Meters> getLogList(long deviceId);
+}
+
+public static void main(){
+		TestDao dao = BeanHelper.getBean(TestDao.class);
+		
+		//增
+		for(int i=0;i<10;i++){
+			meters.setTs(new Date());
+			meters.setVoltage(Integer.parseInt(StringUtil.getRandomString(1,"3456")));
+			dao.insertEntity(meters);
+		}
+		
+		//查
+		List<Meters> logList = dao.getLogList(1);
+		for(Meters log:logList){
+			System.out.println(JsonUtil.toJson(log));
+		}
+}
+

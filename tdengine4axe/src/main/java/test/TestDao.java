@@ -9,6 +9,6 @@ import com.tdengine4axe.interface_.BaseRepository;
 @Dao
 public interface TestDao extends BaseRepository{
 
-	@Sql("select * from device_?1")
+	@Sql("select * from test4axe.device_?1")
 	public List<Meters> getLogList(long deviceId);
 }
